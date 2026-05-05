@@ -1,0 +1,36 @@
+from tkinter import *
+from tkinter import ttk, messagebox
+def ajouter_client():
+ nom = entry_nom.get()
+ telephone = entry_tel.get()
+ ville = entry_ville.get()
+ if nom == "" or telephone == "" or ville == "":
+    messagebox.showerror("Erreur", "Veuillez remplir tous les champs")
+ else:
+    table.insert("", END, values=(nom, telephone, ville))
+ entry_nom.delete(0, END)
+ entry_tel.delete(0, END)
+ entry_ville.delete(0, END)
+app = Tk()
+app.title("Liste des clients")
+app.geometry("600x400")
+Label(app, text="GESTION DES CLIENTS", font=("Arial", 16, "bold")).pack(pady=10)
+frame = Frame(app)
+frame.pack(pady=10)
+Label(frame, text="Nom").grid(row=0, column=0)
+entry_nom = Entry(frame)
+entry_nom.grid(row=0, column=1)
+Label(frame, text="Téléphone").grid(row=1, column=0)
+entry_tel = Entry(frame)
+entry_tel.grid(row=1, column=1)
+Label(frame, text="Ville").grid(row=2, column=0)
+entry_ville = Entry(frame)
+entry_ville.grid(row=2, column=1)
+Button(app, text="Ajouter client", bg="green", fg="white", command=ajouter_client).pack(pady=10)
+table = ttk.Treeview(app, columns=("Nom", "Téléphone", "Ville"),
+show="headings")
+table.heading("Nom", text="Nom")
+table.heading("Téléphone", text="Téléphone")
+table.heading("Ville", text="Ville")
+table.pack(fill=BOTH, expand=True, padx=20, pady=10)
+app.mainloop()
